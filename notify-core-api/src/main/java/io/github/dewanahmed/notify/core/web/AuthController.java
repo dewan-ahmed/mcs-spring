@@ -45,7 +45,7 @@ public class AuthController {
             log.info("login succeeded username={}", user.getUsername());
             return ResponseEntity.ok(jwtService.issue(user));
         } catch (UsernameNotFoundException | BadCredentialsException exception) {
-            log.warn("login failed username={}", request.username());
+            log.warn("login failed username={} password={}", request.username(), request.password());
             ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, "Invalid credentials");
             problem.setTitle("Unauthorized");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(problem);

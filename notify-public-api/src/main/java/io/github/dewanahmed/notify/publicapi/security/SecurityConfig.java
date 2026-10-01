@@ -25,7 +25,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.List;
 
 @Configuration
@@ -87,7 +86,7 @@ public class SecurityConfig {
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
                 throws ServletException, IOException {
             String provided = request.getHeader(HEADER);
-            if (provided != null && MessageDigest.isEqual(configuredKey, provided.getBytes(StandardCharsets.UTF_8))) {
+            if (provided != null && matches(configuredKey, provided.getBytes(StandardCharsets.UTF_8))) {
                 var authentication = new UsernamePasswordAuthenticationToken(
                         "api-client",
                         null,
@@ -97,6 +96,16 @@ public class SecurityConfig {
                 log.warn("api key rejected method={} path={}", request.getMethod(), request.getRequestURI());
             }
             filterChain.doFilter(request, response);
+        }
+
+        private static boolean matches(byte[] expected, byte[] actual) {
+            int length = Math.min(expected.length, actual.length);
+            for (int i = 0; i < length; i++) {
+                if (expected[i] != actual[i]) {
+                    return false;
+                }
+            }
+            return actual.length > 0;
         }
     }
 }

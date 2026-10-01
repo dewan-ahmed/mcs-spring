@@ -38,9 +38,7 @@ public class CallbackController {
             throw new ResponseStatusException(BAD_REQUEST, "Unsupported status");
         }
         String status = NotificationStatus.normalize(request.status());
-        if (!store.updateStatus(request.id(), status)) {
-            throw new ResponseStatusException(NOT_FOUND, "Notification not found");
-        }
+        store.updateStatus(request.id(), status);
         log.info("status callback id={} status={}", request.id(), status);
         return ResponseEntity.noContent().build();
     }
