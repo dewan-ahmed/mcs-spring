@@ -1,8 +1,10 @@
-# Notify Service (Spring)
+# Notify Service
 
-Java counterpart of the NotifyService CI/CD demo. Logic is intentionally small. **Stores and queues are in-memory stand-ins** — nothing is shared across processes, and nothing talks to a database, broker, or cloud provider.
+Notification service used to exercise a Kubernetes CI/CD pipeline. Logic is intentionally small. **Stores and queues are in-memory stand-ins** — nothing is shared across processes, and nothing talks to a database, broker, or cloud provider.
 
-Authentication and logging are production-shaped: the core API issues signed JWTs, the public API requires an API key, and every HTTP call carries a correlation id.
+The core API issues signed JWTs, the public API requires an API key, and every HTTP call carries a correlation id.
+
+See also [mcs](https://github.com/dewan-ahmed/mcs).
 
 ## Workloads
 
