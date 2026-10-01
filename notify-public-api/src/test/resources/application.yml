@@ -1,0 +1,4 @@
+notify:
+  app-environment: test
+  security:
+    api-key: test-api-key

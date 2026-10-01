@@ -1,0 +1,36 @@
+server:
+  port: 5080
+
+spring:
+  application:
+    name: notify-core-api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+    io.github.dewanahmed.notify: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%X{correlationId:-}] %logger{36} - %msg%n"
+
+notify:
+  app-environment: ${APP_ENVIRONMENT:local}
+  security:
+    jwt:
+      issuer: notify-core-api
+      secret: ${JWT_SECRET:}
+      ttl: 1h
+    users:
+      - username: ${NOTIFY_ADMIN_USERNAME:notify-admin}
+        password: ${NOTIFY_ADMIN_PASSWORD:}
+        roles:
+          - ADMIN

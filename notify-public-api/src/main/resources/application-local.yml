@@ -1,0 +1,4 @@
+notify:
+  app-environment: local
+  security:
+    api-key: local-dev-api-key

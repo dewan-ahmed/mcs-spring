@@ -1,0 +1,26 @@
+services:
+  notify-core-api:
+    build: ./notify-core-api
+    ports:
+      - "5080:5080"
+    environment:
+      APP_ENVIRONMENT: docker
+      JWT_SECRET: ${JWT_SECRET:-local-dev-jwt-secret-32-bytes-min!}
+      NOTIFY_ADMIN_USERNAME: ${NOTIFY_ADMIN_USERNAME:-notify-admin}
+      NOTIFY_ADMIN_PASSWORD: ${NOTIFY_ADMIN_PASSWORD:-local-dev-password}
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
+
+  notify-public-api:
+    build: ./notify-public-api
+    ports:
+      - "5081:5081"
+    environment:
+      APP_ENVIRONMENT: docker
+      NOTIFY_API_KEY: ${NOTIFY_API_KEY:-local-dev-api-key}
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
+
+  notify-worker:
+    build: ./notify-worker
+    environment:
+      APP_ENVIRONMENT: docker
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs

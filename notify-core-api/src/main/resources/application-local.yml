@@ -1,0 +1,10 @@
+notify:
+  app-environment: local
+  security:
+    jwt:
+      secret: local-dev-jwt-secret-32-bytes-min!
+    users:
+      - username: notify-admin
+        password: local-dev-password
+        roles:
+          - ADMIN

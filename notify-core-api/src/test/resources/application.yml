@@ -1,0 +1,11 @@
+notify:
+  app-environment: test
+  security:
+    jwt:
+      secret: test-jwt-secret-must-be-32-bytes!!
+      ttl: 15m
+    users:
+      - username: notify-admin
+        password: test-password
+        roles:
+          - ADMIN
